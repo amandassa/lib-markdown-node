@@ -1,5 +1,5 @@
-import fs from 'fs';
-import chalk from 'chalk';
+const chalk = require('chalk');
+const fs = require('fs');
 
 function catchLinks (text) {
     const regex = /\[([^\]]*)\]\((https?:\/\/[^$#\s].[^\s]*)\)/gm;
@@ -8,7 +8,7 @@ function catchLinks (text) {
     while ((temp = regex.exec(text)) !== null) {
         links.push({ [temp[1]]: temp[2] });
     }
-    return links;
+    return links.length === 0 ? 'No links were found in file.' : links;
 }
 
 function catchError (err) {
@@ -31,11 +31,10 @@ async function catchFile (path) {
     const encoding = 'utf-8';
     try {
         const data = await fs.promises.readFile(path, encoding);
-        console.log(catchLinks(data));
+        return catchLinks(data);
     } catch (error) {
         catchError(error);
     }
-    
 }
 
-catchFile('./files/texto1.md')
+module.exports = (catchFile);
