@@ -27,6 +27,10 @@ function catchError (err) {
     throw new Error(chalk.red(err.code, errorMsg));
 }
 
+/**
+ * @param {string} path - path of the .md file you want to read 
+ * @returns Either an objects array with { URLname: URL } or a 'not found' string
+ */
 async function catchFile (path) {
     const encoding = 'utf-8';
     try {

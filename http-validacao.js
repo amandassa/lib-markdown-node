@@ -20,6 +20,10 @@ function getURLs (links) {
     return links.map(obj => Object.values(obj).join());
 }
 
+/**
+ * @param {Array} links - Object array: It is expected to contain objects type { URLname: URL }
+ * @returns {Array} An array with objects type { URLname: URL, status: http_status_code }
+ */
 async function checkURLs (links) {
     const arrayLinks = getURLs(links);
     const statusLinks = await getStatus(arrayLinks);
